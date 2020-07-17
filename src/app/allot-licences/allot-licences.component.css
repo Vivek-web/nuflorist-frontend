@@ -1,0 +1,27 @@
+.productcard{
+ margin-bottom: 100px;   
+}
+.pd-rt-15{padding-right: 15px !important;}
+.pd-rt-0{padding-right: 0px !important}
+.pd-lft-0{padding-left: 0px !important;}
+.pntrcrsr{cursor: pointer !important;}
+input#imageUpload {cursor: pointer !important;}
+.logocntr {cursor: pointer !important;}
+p.upldbtndsgn{cursor: pointer !important;}
+span.uplodbtn {
+    cursor: pointer !important;
+}
+.newinputtop{top: -4px; cursor: pointer !important;}
+.uplodbtn.file-wrapper {    cursor: pointer;  position: relative; }
+.uplodbtn.file-wrapper input
+ {
+    cursor: pointer;    font-size: 40px;    filter: alpha(opacity=1);    -moz-opacity: 0.01;
+    opacity: 0.01;    position: absolute;    right: 0;    top: 0;
+  }
+.uplodbtn.file-wrapper .button 
+{
+    background: #333;    -moz-border-radius: 5px;    -webkit-border-radius: 5px;    border-radius: 5px;
+    color: #fff;    cursor: pointer;    display: inline-block;    font-size: 11px;
+    font-weight: bold;    margin-right: 5px;    padding: 4px 18px;    text-transform: uppercase;
+  }
+  .imguphidden{width:auto;}

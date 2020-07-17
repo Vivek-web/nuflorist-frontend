@@ -1,0 +1,151 @@
+<div style="padding-right:15px;" class="container-fluid">
+
+  <!-- form header -->
+  <div class="row">
+    <div class="col">
+      <h1>Nested Forms</h1>
+      <hr>
+    </div>
+  </div>
+
+  <!-- main form -->
+  <div class="row">
+    <form (ngSubmit)="submitHandler()" style="width:100%;" [formGroup]="nestedForm">
+      <div class="col">
+
+        <!-- personal info -->
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="fnText">First Name</label>
+              <input type="text" formControlName="firstName" [ngClass]="{'form-control': true,
+              'is-invalid': firstName.invalid && firstName.touched,
+              'is-valid': firstName.valid}" id="fnText" placeholder="Enter first name">
+              <small id="fnHelp" *ngIf="firstName.errors?.required && firstName.touched" class="form-text custom-invalid-feedback">Field is required</small>
+              <small id="fnHelp" *ngIf="firstName.errors?.minlength && firstName.touched" class="form-text custom-invalid-feedback">Value must contain atleast 2 characters</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="lnText">Last Name</label>
+              <input type="text" formControlName="lastName" [ngClass]="{'form-control': true,
+              'is-invalid': lastName.invalid && lastName.touched,
+              'is-valid': lastName.valid}" id="lnText" placeholder="Enter last name">
+              <small id="fnHelp" *ngIf="lastName.invalid && lastName.touched" class="form-text custom-invalid-feedback">Field is required</small>
+            </div>
+          </div>
+          <div class="col-12">
+            <div>
+              <label for="" class="form-label">Favourite Food</label>
+            </div>
+            <div class="form-check form-check-inline" *ngFor="let control of fruitsArray.controls; let i = index;">
+              <input class="form-check-input" type="checkbox"  
+              (change)="getSelectedFruitsValue()"
+              [formControl] = "control"
+              id="inlineCheckbox{{i}}">
+              <label class="form-check-label" for="inlineCheckbox{{i}}">{{fruits[i]}}</label>
+            </div>
+            <div>
+              <small id="fnHelp" *ngIf="favFruitsError && checkFruitControlsTouched()" class="form-text custom-invalid-feedback">Atleast choose one</small>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr>
+          </div>
+        </div>
+
+
+        <!-- address form portion -->
+        <div class="row" formArrayName="address">
+          <div class="col-12" *ngFor="let group of addressArray.controls; let i = index;" [formGroupName]="i">
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-8">
+                    <h4>Address {{i+1}}</h4>
+                  </div>
+                  <div class="col-4 control-buttons">
+                    <img src="/assets/icons/add.svg" alt="" (click)="addAddress()">
+                    <img src="/assets/icons/remove.svg" alt="" width="24" height="24" (click)="removeAddress(i)">
+                  </div>
+                </div>
+                <hr>
+              </div>
+              <div class="col-12" style="margin-bottom: 1rem;">
+                <div class="form-check">
+                  <input class="form-check-input" formControlName="primaryFlg" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Is Primary Address
+                  </label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="addText">Street Address</label>
+                  <input type="text" formControlName="streetAddress" [ngClass]="{'form-control': true,
+                      'is-invalid': group.controls.streetAddress.invalid && group.controls.streetAddress.touched,
+                      'is-valid': group.controls.streetAddress.valid}" id="addText" placeholder="Enter street address">
+                  <small *ngIf="group.controls.streetAddress.invalid && group.controls.streetAddress.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input type="text" formControlName="city" [ngClass]="{'form-control': true,
+                      'is-invalid': group.controls.city.invalid && group.controls.city.touched,
+                      'is-valid': group.controls.city.valid}" id="city" placeholder="Enter city">
+                      <small *ngIf="group.controls.city.invalid && group.controls.city.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <select id="inputState" formControlName="state" [ngClass]="{'form-control': true,
+                      'is-invalid': group.controls.state.invalid && group.controls.state.touched,
+                      'is-valid': group.controls.state.valid}">
+                        <option selected [ngValue]="null">Choose...</option>
+                        <option *ngFor="let item of states" [value]="item">{{item}}</option>
+                      </select>
+                      <small *ngIf="group.controls.state.invalid && group.controls.state.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="zipcode">Zip Code</label>
+                      <input type="text" formControlName="zipcode" [ngClass]="{'form-control': true,
+                      'is-invalid': group.controls.zipcode.invalid && group.controls.zipcode.touched,
+                      'is-valid':  group.controls.zipcode.valid}" id="zipcode" placeholder="Enter city">
+                      <small *ngIf="group.controls.zipcode.errors?.required && group.controls.zipcode.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                      <small *ngIf="group.controls.zipcode.errors?.pattern && group.controls.zipcode.touched" class="form-text custom-invalid-feedback">Value should be 5 digit number.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr>
+          </div>
+        </div>
+
+        <!-- final action buttons -->
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

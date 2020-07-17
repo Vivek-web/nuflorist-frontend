@@ -1,0 +1,8 @@
+nav.navbar.navbar-expand-md.navbar-dark.mobilenav{display: none;}
+@media (max-width: 767px) and (min-width: 10px)
+{
+    nav.navbar.navbar-expand-md.navbar-dark.mobilenav{display: block;}
+
+    nav.navbar.navbar-expand-md.navbar-dark.mobilenav .tgglemenu2 {display: none;}
+    nav.navbar.navbar-expand-md.navbar-dark.fullscreennav{display: none;}
+}

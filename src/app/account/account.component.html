@@ -1,0 +1,76 @@
+<div class="common bgbnnerimg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="prfile_postn mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="wlcme">Welcome, {{ loggedInUserName }}</h5>
+					</div>
+					<div class="col-md-3">	
+						<div class="accntbox minhtaccountinfo" style="margin-bottom: 75px;">
+							<div class="accntinfo text-center">
+								<p class="accntimg"><img src="assets/images/account.png" alt="Profile image"/></p>
+								<h4 class="accntnme">{{ loggedInUserName }}</h4>
+								<p class="accntmail"><a href="mailto: {{ loggedInUserEmail }}">{{ loggedInUserEmail }}</a></p>	
+							
+							</div>
+							<div class="accntlist text-center">
+								<p class="accntlist_innr accnt_active"><a routerLink="/subscriptions">Subscriptions</a></p>
+
+								
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/account">Companies & Stores</a></p>
+								<p class="accntlist_innr accnt_active"><a routerLink="/account-settings">Account Settings</a></p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/invoices">Invoices</a></p>
+
+								<!-- <p class="accntlist_innr"><a routerLink="/change-password">Password</a></p> -->
+								<p class="accntlist_innr"><a routerLink="/notification">Notification</a></p>
+							
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="subscptn_tble common accntbox">
+							<p class="updtehdng subscrptnspd">Companies</p>
+							<div class="table-responsive">
+							  <table class="table table-hover mainsubscrptntble">
+								<thead>
+								  <tr >
+									<th>Name</th>
+									<th style="padding-left:120px;">No. of Stores</th>
+									<th>Action</th>
+								  </tr>
+								</thead>
+								<tbody>   
+								  <tr *ngFor = "let Company of Companies | paginate: { itemsPerPage:10, currentPage: p } ">
+									<td>{{Company.company_name}}</td>
+									<!-- <td style="padding-left:110px;">No Company Found</td> -->
+									<td style="padding-left:120px;">{{Company.total_stores}}</td>
+									<td ><a style="border: none;cursor: pointer;
+										background: transparent;color:#1CABA0" routerLink="/edit-company/{{ Company.company_id }}"><i class="fa fa-pencil" aria-hidden="true"></i> </a></td>
+								  </tr>
+								  
+								  <tr>
+								</tbody>
+							  </table>
+							  <table *ngIf ="noCompanyFound"  style="width: 100%; text-align: center;">
+								  <tr>
+									  <td>No Company Found</td>
+								  </tr>
+							  </table>
+							  <div *ngIf = "paginationhide" class="bttmpgination"><pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls></div>
+							</div>
+							<div class="common mnagesubs text-right">
+								<p><a class="prdcttrialbtn2 subscptnbtn" routerLink="/add-company">Add Company</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ngx-spinner></ngx-spinner>

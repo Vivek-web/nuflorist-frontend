@@ -1,0 +1,408 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection" style="margin-bottom:50px;">
+		<div class="container">
+			<div class="mnagesubsmain">
+				<div class="row">
+					<div class="col-md-6 custmpdchckout">
+
+						<form (submit)="showPaymentForm($event)" id="msform" class="mltistpfrm">
+							<!-- progressbar -->
+							<ul id="progressbar" *ngIf="progressbar1" class="text-center">
+								<li class="active">information<span class="dot"></span></li>
+								<li>payment <span class="dot"></span></li>
+							</ul>
+							<ul id="progressbar" *ngIf="progressbar2" class="text-center">
+								<li class="active">information<span class="dot"></span></li>
+								<li class="active">payment <span class="dot"></span></li>
+							</ul>
+							<!-- <div class="text-right">
+								<button (click)="backbutton()" class="chkoutbttn"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+									Back</button>
+							</div> -->
+							<!-- fieldsets -->
+							<fieldset *ngIf="fieldset1">
+
+								<h2 class="fs-title">Customer information</h2>
+								<div class="form-group common">
+									<p class="nomg">
+										<span class="lbl_lft"><label for="label-email">Email</label></span>
+
+										<span *ngIf="ifCustmoreLogin"
+											class="lblrght text-right fltrght hveaccnt">Already have an account? <a
+												routerLink="/login/1">Login</a></span>
+									</p>
+									<input type="text" class="form-control" id="email" (blur)="emailCheck($event)"
+										value="{{V_email}}" placeholder="Email" [readonly]="readonly"
+										autocomplete="off" />
+									<span class="inputValidation">{{ emailError }}</span>
+								</div>
+								<div *ngIf="passwordHidden" class="form-group common">
+									<label for="address">Password</label>
+									<input type="password" class="form-control" id="password" placeholder="Password" (keypress)="checkInput('password')"
+										autocomplete="off" />
+									<span class="inputValidation">{{ passwordError }}</span>
+								</div>
+								<div class="form-group common">
+									<label for="address">Contact</label>
+
+									<input type="text" maxlength="10" class="form-control" id="contact"(keypress)="checkInput('contact')" value="{{V_contact}}"
+										placeholder="contact no " autocomplete="off" />
+									<span class="inputValidation">{{ contactError }}</span>
+								</div>
+								<div class="form-group common">
+									<div class="common">
+										<div class="wdth50 lbelmglft">
+											<label for="fname">First name</label>
+
+											<input type="text" class="form-control"(keypress)="checkInput('first_name')" id="first_name"
+												value="{{V_firstname}}" placeholder="First name" autocomplete="off" />
+											<span class="inputValidation">{{ first_nameError }}</span>
+										</div>
+										<div class="wdth50 lbelmgrght">
+											<label for="lname">Last name</label>
+
+
+											<input type="text" class="form-control" id="last_name"
+												value="{{V_lastname}}" placeholder="Last name" autocomplete="off" />
+
+											<span class="inputValidation">{{ last_nameError }}</span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group common">
+									<label for="address">Address</label>
+
+
+									<input type="text" class="form-control"(keypress)="checkInput('address_line1')" id="address_line1" value="{{V_address}}"
+										placeholder="1234 street name" autocomplete="off" />
+
+									<span class="inputValidation">{{ address_line1Error }}</span>
+								</div>
+								<div class="form-group common">
+									<label for="addressoptnl">Address, suite, etc. (optional)</label>
+
+
+									<input type="text" class="form-control" id="address_line2"
+										value="{{V_addressOptional}}" placeholder="1234 street name"
+										autocomplete="off" />
+
+									<span class="inputValidation">{{ address_line2Error }}</span>
+								</div>
+								<!-- <div class="form-group common">
+									<label for="city">City</label>
+									<select class="pymntmthds" id="city"  autocomplete="off" >
+										<option value="">Choose your City</option>
+										<option *ngFor="let city of cites" value="{{ city.id}}" >{{city.name}}</option>
+									</select>
+									<span class="inputValidation">{{ cityError }}</span>
+								</div> -->
+								<div class="form-group common">
+									<div class="common">
+										<div class="wdth30 lbelmglft">
+											<label for="cntry">Country</label>
+
+											<select class="pymntmthds" id="country"(change)="checkInput('country')" autocomplete="off"
+												(change)="changeState($event.target.value)">
+												<option value="">Select Country</option>
+												<option *ngFor="let country of countries" [value]="country.id"
+													[selected]="country.id == V_Country">
+													{{country.name}}</option>
+											</select>
+
+											<span class="inputValidation">{{ countryError }}</span>
+										</div>
+										<div class="wdth30 lbelmgbth">
+											<label for="state">State</label>
+
+
+											<select class="pymntmthds" id="state"(change)="checkInput('state')" autocomplete="off">
+												<option value="">Select State</option>
+												<option *ngFor="let state of states" [value]="state.id"
+													[selected]="state.id == V_State">
+													{{state.name}}
+												</option>
+
+											</select>
+
+											<span class="inputValidation">{{ stateError }}</span>
+										</div>
+										<div class="wdth30 lbelmgrght">
+											<label for="city">City</label>
+
+
+											<input type="text" class="form-control"(keypress)="checkInput('city')" value="{{V_city}}" id="city"
+												placeholder="Enter City">
+
+											<span class="inputValidation">{{ cityError }}</span>
+										</div>
+
+									</div>
+								</div>
+								<!-- <div class="form-group common"> -->
+								<div class="form-group common">
+									<label for="zip">Zipcode</label>
+
+
+									<input type="text" class="form-control"(keypress)="checkInput('zip')" value="{{V_zipcode}}" id="zip"
+										placeholder="1234" autocomplete="off" />
+
+									<span class="inputValidation">{{ zipError }}</span>
+								</div>
+								<!-- </div> -->
+								<input *ngIf="ShowPayNow" type="submit" name="next" class="next action-button"
+									value="Continue to payment" />
+								<img *ngIf="ShowLoading" class="loaderimage" src="assets/images/loader.gif"
+									style="position:relative;" />
+
+							</fieldset>
+						</form>
+						<!-- Right payment Section -->
+						<div *ngIf="fieldset2">
+							<div *ngIf="ShowAddCardForm">
+								<form (submit)="PaymentInformation($event)" id="msform" class="mltistpfrm">
+									<fieldset>
+										<h2 class="fs-title">Payment information</h2>
+										<div class="text-danger" style="padding-bottom: 15px;">
+											{{StripeCardEror}}
+										</div>
+										<!-- <div class="text-danger text-center">
+											hfhf
+										</div> -->
+										<div class="form-group common">
+											<label for="cardhlder">Card holder name</label>
+											<input type="text" class="form-control" id="card_holder"
+												placeholder="cardholder name" autocomplete="off"(keypress)="checkCard('card_holder')" />
+											<span class="inputValidation">{{ cardError }}</span>
+										</div>
+										<div class="form-group common">
+											<label for="cardno">Card Number</label>
+											<input id="card_number" maxlength="16" type="text" class="form-control"(keypress)="checkCard('card_number')"
+												data-inputmask="'mask': '9999 9999 9999 9999'"
+												placeholder="1234-1234-1234-1234" autocomplete="off" />
+											<span class="inputValidation">{{ card_numberError }}</span>
+										</div>
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth50 lbelmglft">
+													<label for="expre">Expiry Month</label>
+													<select id="card_expiry_date" class="pymntmthds" placeholder="324"(change)="checkCard('expire_month')"
+														autocomplete="off">
+														<option value="">Select Month</option>
+														<option value="1">01</option>
+														<option value="2">02</option>
+														<option value="3">03</option>
+														<option value="4">04</option>
+														<option value="5">05</option>
+														<option value="6">06</option>
+														<option value="7">07</option>
+														<option value="8">08</option>
+														<option value="9">09</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+													<span class="inputValidation">{{ card_expiry_dateError }}</span>
+												</div>
+												<div class="wdth50 lbelmgrght">
+													<label for="cvv">ExpiryYear</label>
+													<select id="expYear" class="pymntmthds" placeholder="324"
+														autocomplete="off" (change)="checkCard('expYear')">
+														<option value="">Select Year</option>
+														<option value="20">2020</option>
+														<option value="21">2021</option>
+														<option value="22">2022</option>
+														<option value="23">2023</option>
+														<option value="24">2024</option>
+														<option value="25">2025</option>
+														<option value="26">2026</option>
+														<option value="27">2027</option>
+														<option value="28">2028</option>
+														<option value="29">2029</option>
+														<option value="30">2030</option>
+													</select>
+													<span class="inputValidation">{{ card_expiry_yearError }}</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group common">
+											<label for="cvv">CVV</label>
+											<input id="card_cvv" type="password" maxlength="4" class="form-control"(keypress)="checkCard('cvv')"
+												data-inputmask="'mask': '999'" placeholder="324" autocomplete="off" />
+											<span class="inputValidation">{{ card_cvvError }}</span>
+										</div>
+										<!-- </div> -->
+
+										<!-- <input *ngIf="ShowPayNow" type="submit" name="submit"
+											class="submit action-button" value="Pay now">
+										<img *ngIf="ShowLoading" class="loaderimage" src="assets/images/loader.gif"
+											style="position:relative;float:left;margin-top: 30px;" />
+										<div class="text-right">
+											<button (click)="backbutton()" class="chkoutbttn"><i
+													class="fa fa-arrow-left pd-rt-10" aria-hidden="true"></i>
+												Back</button>
+										</div> -->
+										<div class="form-group common">
+											<div class="row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+													<input *ngIf="ShowPayNow" type="submit" name="submit" class="submit action-button" value="Pay now">
+													<img *ngIf="ShowLoading" class="loaderimage" src="assets/images/loader.gif"	style="position:relative;float:left;margin-top: 16px;" />
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+												<button *ngIf ="backButton" (click)="backbutton()" class="chkoutbttn"><i class="fa fa-arrow-left pd-rt-10" aria-hidden="true"></i>
+													Back</button>
+												</div>
+											</div>
+										</div>
+
+
+									</fieldset>
+								</form>
+							</div>
+							<div *ngIf="ListCardDiv">
+								<form (submit)="SelectCard($event)" id="msform" class="mltistpfrm">
+									<fieldset>
+										<h2 class="fs-title">Select Card</h2>
+										<div class="text-success text-center">
+											{{message}}
+										</div>
+
+										<div *ngFor="let card of Cards">
+											<div class="row" style="margin-bottom: 10px;">
+												<div class="col-md-1"><input type="radio" name="card_id"
+														value="{{card.card_d}}" checked></div>
+												<div class="col-md-2"><i class="fa fa-credit-card"
+														style="font-size:40px;color:#1CABA0"></i></div>
+												<div class="col-md-4">{{card.brand}}</div>
+												<div class="col-md-5">***********{{card.Last_4_digit}}</div>
+											</div>
+										</div>
+										<!-- <div class="payloader" style="position:relative;float:left;">
+											<input *ngIf="ShowPayNow" type="submit" name="submit" value="Pay Now"
+												id="Pay_button" class="submit action-button" style="margin-top: 25px;">
+											<img *ngIf="ShowLoading" class="loaderimage" src="assets/images/loader.gif"
+												style="position:relative;float:left;margin-top: 30px;" />
+										</div>
+										<button style="margin-top: 32px;" value="" class="use-another-card"
+											(click)="useAnotherCard()"> Use Another Card ?</button>
+
+										<button (click)="backbutton()" class="chkoutbttn"><i
+												class="fa fa-arrow-left pd-rt-10" aria-hidden="true"></i>
+											Back</button> -->
+											<div class="row">
+												<div class="col-md-4">
+													<div class="payloader" style="position:relative;float:left;">
+														<input *ngIf="ShowPayNow" type="submit" name="submit" value="Pay Now"
+															id="Pay_button" class="submit action-button mr-top-25" style="margin-top: 25px;">
+														<img *ngIf="ShowLoading" class="loaderimage" src="assets/images/loader.gif"
+															style="position:relative;float:left;margin-top: 30px;" />
+													</div>
+												</div>
+												<div class="col-md-4 lftrt-0-pd">
+													<button style="margin-top: 32px;" value="" class="use-another-card mr-top-25 mkbttn"
+														(click)="useAnotherCard()"> Use Another Card ?</button>
+												</div>
+												<div class="col-md-4">
+													<button *ngIf ="backButton" (click)="backbutton()" class="chkoutbttn mr-top-25"><i
+															class="fa fa-arrow-left pd-rt-10" aria-hidden="true"></i>
+														Back</button>
+												</div>			
+											</div>
+
+
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 custmpdchckout2">
+						<div class="common prdctcard ordrboxmgbtm">
+							<div class="common ordrbox">
+								<p class="urordr">Your order</p>
+
+								<div class="common ordrdesc" *ngFor="let product of cartItems; let i = index">
+
+									<p class="ordersectn_tble">
+										<span class="prdctimg">
+											<img src="assets/images/{{product.image }}" alt="product.name" />
+										</span>
+										<span class="prdctnamefull">{{product.name}}</span>
+										<button style="float:right;" type="button" title="Remove product"
+											(click)="removeProduct(product)" class="fa fa-trash removeButton"></button>
+									</p>
+									<form class="ordrform" name="ordrform">
+										<select class="ordrslct">
+											<option value="Annual plan, paid monthly - $150/mo">Annual plan, paid
+												monthly - ${{price}}/mo</option>
+										</select>
+										<div class="form-group common orderboxform">
+											<span class="lbelsectn">
+
+												<label for="licno" class="licnlbl">How many licenses do you
+													need?</label>
+											</span>
+
+											<span class="inptsectn">
+												<!-- <input type="text" name="licensesValue" [ngModel]="product.qty"
+													(ngModelChange)="product.qty = $event" class="form-control licno"
+													id="{{product.id}}" placeholder="1" autocomplete="off" /> -->
+												<select class="pymntmthds"
+													style="width: 35px; padding-left: 8px !important;"
+													autocomplete="off" [ngModel]="product.qty" name="licensesValue"
+													(change)="increase($event)" id="{{product.id}}">
+													<option *ngFor="let item of [].constructor(100); let i = index"
+														value="{{i+1}}">{{i+1}}</option>
+												</select>
+
+											</span>
+
+										</div>
+
+									</form>
+
+									<!-- <button type="button" (click)="increase(product)"
+											class="btn btn-success totlhdngamnt" style="margin-right: 4px">+</button> -->
+
+									<div *ngIf="needline" class="common totl" style="margin-top: 10px;"></div>
+
+
+								</div>
+
+							</div>
+							<div class="common totl">
+								<span class="totlhdng displyinln">Total</span>
+								<span *ngIf="BydefaultPrice" class="totlhdngamnt displyinln">${{price}}/mo</span>
+								<span *ngIf="ShowTotalPrice" class="totlhdngamnt displyinln">${{cartTotal}}/mo</span>
+
+
+
+							</div>
+						</div>
+						<!-- <div *ngIf="AddmoreProductDiv" class="common prdctcard">
+							<p class="addprdct ordrbox">Add more products:</p>
+							<div class="common bordrbtm_prdct" *ngFor="let product of Products">
+								<div class="ordersectn_tble">
+									<span class="subscrpimg morepdctslitingmain">
+										<p class="chckout_prdct">
+											<img src="assets/images/{{product.image}}" alt="{{product.name}}" />
+										</p>
+									</span>
+									<span class="prdctnamefull chckoutprdctwdth">
+										<p class="moreprdlist">{{product.name}}</p>
+										<p class="subscprchse moreprdlist_sub">${{product.price}}/mo</p>
+									</span>
+									<span class="addbtnprdct">
+										<p class="addbtnprdct_txt"><a (click)="AddMoreProducts(product)"
+												style="cursor:pointer">Add</a></p>
+									</span>
+								</div>
+							</div>
+
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ngx-spinner></ngx-spinner>

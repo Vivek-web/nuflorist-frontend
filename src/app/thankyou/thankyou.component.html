@@ -1,0 +1,52 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt cngrtlatns_main">
+		<div class="container">
+			<div class="mnagesubsmain">
+				<div class="row">
+					<div class="col-md-6 custmpdchckout cngrtlatnshlf">
+						<div class="succspgetbl">
+							<div class="cngrtstxt">
+							<div class="common">
+								<h4 class="cngrts">Congratulations</h4>
+								<p class="scesstxt">Your payment was made successfully, you now have access to Nuflorist Products. to view all of your products 
+								<p class="cntnueshop"><a routerLink="/allot-licences">Allot your licences</a></p>
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="col-md-6 custmpdchckout2 cngrtlatnshlf">
+						<div class="succspgetbl" style="margin-bottom: 30px;">
+							<div class="cngrtstxt">
+							<p class="addprdct_urordr" style="padding-top: 10px ;text-align: center">Your order</p>
+							<div class="common prdctcard" >
+							<div class="common ordrshrtviewpd" *ngFor="let product of PurchaseProducts" style="border-bottom:1px solid lightgrey">
+									<div class="ordersectn_tble">
+										<span class="subscrpimg morepdctslitingmain">
+											<p class="chckout_prdct">
+											<img src="assets/images/{{product.image }}" alt="product.name"/>
+											</p>
+										</span>
+										<span class="prdctnamefull chckoutprdctwdth">
+											<p class="moreprdlist">{{product.name}}</p>
+										</span>
+										<span class="addbtnprdct" style="font-size: 13px;">
+										Licenses: {{product.qty}}
+										</span>
+									</div>
+									<p class="shrtnmedesc">Annual plan, paid monthly - US${{product.price}}/mo</p>
+									<div class="common totl"></div>
+								</div>
+								<div class="common totl">
+									<span class="totlhdng displyinln">Total</span>
+							<span  class="totlhdngamnt displyinln">${{cartTotal}}/mo</span>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

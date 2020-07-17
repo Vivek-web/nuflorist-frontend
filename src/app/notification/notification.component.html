@@ -1,0 +1,70 @@
+<div class="common bgbnnerimg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="prfile_postn mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="wlcme">Welcome, {{ loggedInUserName }}</h5>
+					</div>
+					<div class="col-md-3">	
+						<div class="accntbox minhtaccountinfo" style="margin-bottom: 75px;">
+							<div class="accntinfo text-center">
+								<p class="accntimg"><img src="assets/images/account.png" alt="Profile image"/></p>
+								<h4 class="accntnme">{{ loggedInUserName }}</h4>
+								<p class="accntmail"><a href="mailto: {{ loggedInUserEmail }}">{{ loggedInUserEmail }}</a></p>	
+							
+							</div>
+							<div class="accntlist text-center">
+								<p class="accntlist_innr accnt_active"><a routerLink="/subscriptions">Subscriptions</a></p>
+
+								
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/account">Companies & Stores</a></p>
+								<p class="accntlist_innr accnt_active"><a routerLink="/account-settings">Account Settings</a></p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/invoices">Invoices</a></p>
+
+								<!-- <p class="accntlist_innr"><a routerLink="/change-password">Password</a></p> -->
+								<p class="accntlist_innr"><a href="">Notification</a></p>
+							
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="subscptn_tble common accntbox">
+							<p class="updtehdng subscrptnspd"></p>
+							<div class="table-responsive">
+							  <table class="table table-hover mainsubscrptntble">
+								<thead>
+								  <!-- <tr >
+									<th>Name</th>
+									<th style="padding-left:120px;">No. of Stores</th>
+									<th>Action</th>
+								  </tr> -->
+								</thead>
+								<tbody>   
+								  <tr style="text-align: center;">
+									<td>Coming Soon!</td>
+									
+								  </tr>
+								  
+								  <tr>
+								</tbody>
+							  </table>
+							  <!-- <table  style="width: 100%; text-align: center;">
+								  <tr>
+									  <td>Coming Soon!</td>
+								  </tr>
+							  </table> -->
+							 
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

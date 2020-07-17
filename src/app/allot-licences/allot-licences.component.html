@@ -1,0 +1,518 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="mnagesubsmain">
+				<div class="chkoutlftside">
+					<h2 class="fs-title">Allot your licences</h2>
+					<p class="licencetext">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+			</div>
+			<div class="mnagesubsmain">
+				<form [formGroup]="SubscriptionForm" (ngSubmit)="Finish()">
+					<div class="common prdctcard productcard">
+
+						<div class="common ordrbox brdrbttm" *ngFor="let products of PurchasedProducts; let j = index ">
+
+							<div formArrayName="subscriptionData">
+								<div class="common ordrdesc">
+									<div class="cardheading">
+
+										<p class="ordersectn_tble">
+											<span class="prdctimg">
+												<img src="assets/images/{{products.image}}" alt="{{products.name}}" />
+											</span>
+											<span class="fnt-24 fntbold">{{products.name}}
+											</span>
+										</p>
+									</div>
+
+									<div [formGroupName]="j" class="row pd-topbttm-30">
+										<input type="text" formControlName="SubscriptionId" hidden>
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 pd-rht-0">
+											<select formControlName="company_id"  class="ordrslct wd-70 newslct"
+											
+												(change)="SelectedCompany($event.target.value,products.id,j,SubscriptionForm.value )">
+												<option value="">Select Company</option>
+												<option *ngFor="let company of Companies" [value]="company.company_id" 
+													>
+													{{company.company_name}}</option>
+											</select>
+
+											<a href="" class="plusopenmdl" data-toggle="modal" (click)="CompanyReset(j,products.id)"
+												data-target="#select_company"><img src="assets/images/plus.png"
+													class="plusiconsize"></a>
+
+											
+											<div  class="inputValidation" style="padding-top:10px; padding-right: 81px; ">
+												{{Companymessage[j]}}</div>
+
+
+
+										</div>
+
+
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 pd-rht-0">
+											<select formControlName="store_id" class="ordrslct wd-70 newslct" 
+											(change)="SelectedStore($event.target.value,products.id,j,SubscriptionForm.value )">
+												<option value="">Select Store</option>
+												<option *ngFor="let store of Stores[j]" [value]="store.id">
+													{{store.store_name}}</option>
+											</select>
+
+											<a *ngIf="storehide[j]" href="" class="plusopenmdl" data-toggle="modal"(click)="StoreAdd(j,products.id)"
+												data-target="#select_store"><img src="assets/images/plus.png"
+													class="plusiconsize"></a>
+										
+												<div class="inputValidation"style="padding-top: 10px;">{{Storemessage[j]}}</div>
+										</div>
+
+                                                                      
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 pd-rht-0">
+											<select formControlName="admin_id" class="ordrslct wd-70 newslct"
+												(change)="checkFormValid($event.target.value,products.product_id,j)">
+												<option value="">Select Admin User</option>
+												<option *ngFor="let user of AdminData" [value]="user.admin_user_id">
+													{{user.first_name}} {{user.last_name}}
+												</option>
+
+											</select>
+
+											<a *ngIf = "adminhide[j]" href="" class="plusopenmdl" data-toggle="modal"(click)="AdminReset(j,products.id)"
+												data-target="#select_user"><img src="assets/images/plus.png"
+													class="plusiconsize"></a>
+											
+
+										<div class="inputValidation" style="padding-top: 10px;">{{Adminmessage[j]}}</div>		
+
+
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="common buttondiv">
+							<input type="submit" name="next" class="next action-button savestrtbutton" value="Finish">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="select_company" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header pd-16-25">
+				<span class="modal-title fnt-24">Add Company</span>
+
+				<button type="button" #closebutton class="close" (click)="CompanyResetValidation()"
+					data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body pd-16-25">
+				<div class="modalformdiv">
+					<form [formGroup]="CompanyForm" (ngSubmit)="Submit()">
+						<div class="form-group common">
+							<label for="comp_name">Company Name</label>
+							<input type="text" class="form-control" id="comp_name" placeholder="Company Name"
+								autocomplete="off" formControlName="company_name" class="form-control"
+								[ngClass]="{ 'is-invalid': CompanySubmitted && f.company_name.errors }" />
+							<div *ngIf="CompanySubmitted && f.company_name.errors" class="invalid-feedback">
+								<div *ngIf="f.company_name.errors.required">Company is required</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="ownr_name">Owner Name</label>
+							<input type="text" class="form-control" id="ownr_name" placeholder="Owner Name"
+								autocomplete="off" formControlName="owner_name" class="form-control"
+								[ngClass]="{ 'is-invalid':CompanySubmitted && f.owner_name.errors }" />
+							<div *ngIf="CompanySubmitted && f.owner_name.errors" class="invalid-feedback">
+								<div *ngIf="f.owner_name.errors.required">Owner Name is required
+								</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="contact_num">Contact No.</label>
+									<input type="text" class="form-control" id="contact_num" placeholder="Contact No."
+										autocomplete="off" formControlName="contact_number" maxlength="15" class="form-control"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.contact_number.errors }" />
+									<div *ngIf="CompanySubmitted && f.contact_number.errors" class="invalid-feedback">
+										<div *ngIf="f.contact_number.errors.required">Contact number is
+											required</div>
+											<div *ngIf="f.contact_number.errors.minlength">
+												Minimum length should be 8 digits.
+										   </div> 	
+									</div>
+								</div>
+								<div class="wdth50 lbelmgrght">
+									<label for="email_add">Email Address</label>
+									<input type="email" class="form-control" id="emailCompnay"
+										placeholder="EmailAddress" autocomplete="off" formControlName="email"
+										class="form-control"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.email.errors }" />
+									<div *ngIf="CompanySubmitted && f.email.errors" class="invalid-feedback">
+										<div *ngIf="f.email.errors.required">Email Address is
+											required</div>
+										<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="address_lineone">Address Line 1</label>
+							<input type="text" class="form-control" id="addressCompnay" placeholder="1234 street name"
+								autocomplete="off" formControlName="address_line1" class="form-control"
+								[ngClass]="{ 'is-invalid': CompanySubmitted && f.address_line1.errors }" />
+							<div *ngIf="CompanySubmitted && f.address_line1.errors" class="invalid-feedback">
+								<div *ngIf="f.address_line1.errors.required">Address_Line1 is
+									required</div>
+							</div>
+
+						</div>
+						<div class="form-group common">
+							<label for="address_linetwo">Address Line 2</label>
+							<input type="text" class="form-control" id="address_linetwo" placeholder="1234 street name"
+								autocomplete="off" formControlName="address_line2" />
+						</div>
+
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="cntry">Country</label>
+
+									<select class="pymntmthds" id="country" autocomplete="off"
+										(change)="changeState($event.target.value)" formControlName="country"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.country.errors }">
+										<option value="">Select Country</option>
+										<option *ngFor="let country of countries" [value]="country.id">
+											{{country.name}}</option>
+									</select>
+									<div *ngIf="CompanySubmitted && f.country.errors" class="invalid-feedback">
+										<div *ngIf="f.country.errors.required">Country is
+											required</div>
+									</div>
+
+								</div>
+								<div class="wdth50 lbelmgbth">
+									<label for="state">State</label>
+									<select class="form-control" id="state" autocomplete="off" formControlName="State"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.State.errors }">
+										<option value="">Select State</option>
+										<option *ngFor="let state of states" [value]="state.id">
+											{{state.name}}
+										</option>
+									</select>
+									<div *ngIf="CompanySubmitted && f.State.errors" class="invalid-feedback">
+										<div *ngIf="f.State.errors.required">State is
+											required</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="city">City</label>
+									<input type="text" class="form-control" id="city" placeholder="City"
+										autocomplete="off" formControlName="city" class="form-control"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.city.errors }" />
+									<div *ngIf="CompanySubmitted && f.city.errors" class="invalid-feedback">
+										<div *ngIf="f.city.errors.required">City is required</div>
+									</div>
+								</div>
+								<div class="wdth50 lbelmgbth">
+									<label for="zip">Zipcode</label>
+									<input type="text" class="form-control" id="zip" placeholder="1234"
+										autocomplete="off" formControlName="zip"
+										[ngClass]="{ 'is-invalid': CompanySubmitted && f.State.errors }" />
+									<div *ngIf="CompanySubmitted && f.zip.errors" class="inputValidation">
+										<div *ngIf="f.zip.errors.required">Zip is required</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="text-success" style="text-align: center;">
+							{{companymessage}}</div>
+						<div class="common buttondiv">
+							<input type="button" name="next" (click)="Submit()"
+								class="next action-button savestrtbutton" value="Add Company">
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<!-- <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+
+		</div>
+	</div>
+</div>
+<!-- Add Company Modal -->
+
+
+<!-- Add Store Modal -->
+<div class="modal" id="select_store" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header pd-16-25">
+				<span class="modal-title fnt-24">Add Store</span>
+				<button type="button" #fileInput class="close" (click)='StoreReset()' data-dismiss="modal">
+					&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body pd-16-25">
+				<div class="modalformdiv">
+					<form [formGroup]="StoreForm" (ngSubmit)="onSubmit" enctype="multipart/form-data">
+						<div class="form-group common">
+							<div class="logocntr">
+								<span *ngIf="imagepreview" class="upldimg pd-rt-15">
+									<p class="imgfrme">
+										<span>
+											<img [src]="preview" *ngIf="preview" />
+										</span>
+									</p>
+								</span>
+								<span class="uplodbtn file-wrapper">
+									<input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" 
+										class="imguphidden" (change)="uploadFile($event,j)" />
+									<input type="hidden" name="fileHidden" formControlName="Storeimage" />
+									<span class="upldbtndsgn" style="cursor: pointer;">Upload logo</span>
+									<div *ngIf="StoreSubmitted && C.Storeimage.errors" class="inputValidation"style="padding-top: 10px;">
+										<div *ngIf="C.Storeimage.errors.required">Image is required</div>
+									</div>
+								</span>
+								
+								 
+
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="store_name">Store Name</label>
+							<input type="text" class="form-control" id="store_name" placeholder="Company Name"
+								autocomplete="off" formControlName="store_name" class="form-control"
+								[ngClass]="{ 'is-invalid': StoreSubmitted && C. store_name.errors }" />
+							<div *ngIf="StoreSubmitted && C.store_name.errors" class="invalid-feedback">
+								<div *ngIf="C.store_name.errors.required">Store is required</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="cntct_name">Owner Name</label>
+							<input type="text" class="form-control" id="cntct_name" placeholder="Owner Name"
+								autocomplete="off" formControlName="owner_name" class="form-control"
+								[ngClass]="{ 'is-invalid': StoreSubmitted && C. owner_name.errors }" />
+							<div *ngIf="StoreSubmitted && C.owner_name.errors" class="invalid-feedback">
+								<div *ngIf="C.owner_name.errors.required">Owner is required</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="contact_num">Contact No.</label>
+									<input type="text" class="form-control" id="contactStore"maxlength="10" placeholder="Contact No."
+										autocomplete="off" formControlName="contact_number" class="form-control"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.contact_number.errors }" />
+									<div *ngIf="StoreSubmitted && C.contact_number.errors" class="invalid-feedback">
+										<div *ngIf="C.contact_number.errors.required">Contact is required</div>
+										<div *ngIf="C.contact_number.errors.minlength">
+											Minimum length should be 8 digits.
+									   </div> 
+									</div>
+
+								</div>
+								<div class="wdth50 lbelmgrght">
+									<label for="email_add">Email Address</label>
+									<input type="email" class="form-control" id="emailStore" placeholder="Email Address"
+										autocomplete="off" formControlName="email" class="form-control"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.email.errors }" />
+									<div *ngIf="StoreSubmitted && C.email.errors" class="invalid-feedback">
+										<div *ngIf="C.email.errors.required">Email Address</div>
+										<!-- <div *ngIf="f.email.errors.email">Email must be a valid email address</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="address_lineone">Address Line 1</label>
+							<input type="text" class="form-control" id="addressStore" placeholder="1234 street name"
+								autocomplete="off" formControlName="address_line1" class="form-control"
+								[ngClass]="{ 'is-invalid': StoreSubmitted && C.address_line1.errors }" />
+							<div *ngIf="StoreSubmitted && C.address_line1.errors" class="invalid-feedback">
+								<div *ngIf="C.address_line1.errors.required">Address Line 1</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="address_linetwo">Address Line 2</label>
+							<input type="text" class="form-control" id="addresslinetwo" placeholder="1234 street name"
+								autocomplete="off" formControlName="address_line2" />
+						</div>
+
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="cntry">Country</label>
+
+									<select class="form-control" id="country" autocomplete="off"
+										(change)="changeState($event.target.value)" formControlName="country"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.country.errors }">
+										<option value="">Select Country</option>
+										<option *ngFor="let country of countries" [value]="country.id">
+											{{country.name}}</option>
+									</select>
+
+									<div *ngIf="StoreSubmitted && C.country.errors" class="invalid-feedback">
+										<div *ngIf="C.country.errors.required">Country is
+											required</div>
+									</div>
+								</div>
+								<div class="wdth50 lbelmgbth">
+									<label for="state">State</label>
+									<select class="form-control" id="state" autocomplete="off" formControlName="State"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.State.errors }">
+										<option value="">Select State</option>
+										<option *ngFor="let state of states" [value]="state.id">
+											{{state.name}}
+										</option>
+									</select>
+									<div *ngIf="StoreSubmitted && C.State.errors" class="invalid-feedback">
+										<div *ngIf="C.State.errors.required">State is
+											required</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="city">City</label>
+									<input type="text" class="form-control" id="Storecity" placeholder="City"
+										autocomplete="off" formControlName="city" class="form-control"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.city.errors }" />
+									<div *ngIf="StoreSubmitted && C.city.errors" class="invalid-feedback">
+										<div *ngIf="C.city.errors.required">City</div>
+									</div>
+								</div>
+
+
+
+								<div class="wdth50 lbelmgbth">
+									<label for="zip">Zipcode</label>
+									<input type="text" class="form-control" id="zipStore" placeholder="1234"
+										autocomplete="off" formControlName="zip"
+										[ngClass]="{ 'is-invalid': StoreSubmitted && C.zip.errors }" />
+									<div *ngIf="StoreSubmitted && C.zip.errors" class="invalid-feedback">
+										<div *ngIf="C.zip.errors.required">Zipcode</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="text-success" style="text-align: center;">
+							{{storemessage}}</div>
+						<div class="common buttondiv">
+							<input type="button" name="next" (click)="onSubmit()"
+								class="next action-button savestrtbutton" value="Add Store">
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<!-- <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+
+		</div>
+	</div>
+</div>
+<!-- Add Store Modal -->
+
+<!-- Add User Modal -->
+<div class="modal" id="select_user" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header pd-16-25">
+				<span class="modal-title fnt-24">Add Admin User</span>
+				<button type="button" #adminclose class="close" (click)='AdminReset()'
+					data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body pd-16-25">
+				<div class="modalformdiv">
+					<form [formGroup]="AdminForm" (ngSubmit)="AdminSubmit">
+						<div class="form-group common">
+							<div class="common">
+								<div class="wdth50 lbelmglft">
+									<label for="fname">First name</label>
+									<input type="text" class="form-control" id="fname" placeholder="First name"
+										autocomplete="off" formControlName="firstname" class="form-control"
+										[ngClass]="{ 'is-invalid': AdminSubmitted && k. firstname.errors }" />
+									<div *ngIf="AdminSubmitted && k.firstname.errors" class="invalid-feedback">
+										<div *ngIf="k.firstname.errors.required">First name is required</div>
+									</div>
+								</div>
+								<div class="wdth50 lbelmgrght">
+									<label for="lname">Last name</label>
+									<input type="text" class="form-control" id="lname" placeholder="Last name"
+										autocomplete="off" formControlName="lastname" />
+									<!-- <div *ngIf="AdminSubmitted && k.lastname.errors" class="invalid-feedback">
+										<div *ngIf="k.lastname.errors.required">Last name is required</div>
+									</div> -->
+								</div>
+							</div>
+						</div>
+						<div class="form-group common">
+							<label for="email_add">Email Address</label>
+							<input type="email" class="form-control" id="emailAdmin" placeholder="Email Address"
+								autocomplete="off" formControlName="email" class="form-control"
+								[ngClass]="{ 'is-invalid': AdminSubmitted && k. email.errors }" />
+							<div *ngIf="AdminSubmitted && k.email.errors" class="invalid-feedback">
+								<div *ngIf="k.email.errors.required">Email is required</div>
+								<div *ngIf="k.email.errors.email">Email must be a valid email address</div>
+								<span *ngIf="k.email.errors?.isExists">Email already exists!</span>
+
+								<!-- <div *ngIf="k.email.invalid && email.errors.isEmailUnique">this email already exist
+								</div> -->
+							</div>
+
+						</div>
+						<div class="text-success" style="text-align: center;">
+							{{adminmessage}}</div>
+						<div class="common buttondiv">
+							<input type="button" name="next" (click)="AdminSubmit()"
+								class="next action-button savestrtbutton" value="Add Admin User">
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<!-- <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div> -->
+
+		</div>
+	</div>
+</div>
+<ngx-spinner></ngx-spinner>

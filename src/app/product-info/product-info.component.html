@@ -1,0 +1,71 @@
+<div class="common bgbnnerimg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="maintxt">
+						<p class="maintxt_innr prdctbannertxt">{{product.name}}</p>
+						<p class="bnnershrttxt">{{product.description}}.</p>
+						<div class="common">
+							<span  *ngIf="show" class="trailmainprdcts displypropblck">
+									<a routerLink="/checkout/{{ product.id }}" class="buybtn"(click)="RemoveOldData()">Buy Licence</a>
+							</span>
+							<span *ngIf="trailversion"  class="trailmainprdcts displypropblck">  
+                                 <a routerLink="/checkout/{{ product.id }}" class="buybtn"(click)="RemoveOldData()">Start 15 days free trial</a>
+                            </span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="imgpostn">
+						<img src="assets/images/bnnrmob.png" alt="Mobile"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section class="common rightsectn sectnmg fture_bneftsectn">
+	<div class="container">
+		<div class="rghtrwmg common">
+			<div class="row">
+				<div class="col-md-4 pdprodctscustm text-center fture_bneftsectn_boxes">
+					<div class="common prdctcard prdctcardpd">
+						<img src="assets/images/Oval.png" alt="Benefit"/>
+						<h3 class="rghthdng_prdct">Feature/Benefit</h3>
+						<p class="rghtdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+					</div>
+				</div>
+				<div class="col-md-4 pdprodctscustm text-center fture_bneftsectn_boxes">
+					<div class="common prdctcard prdctcardpd">
+						<img src="assets/images/Oval02.png" alt="Benefit"/>
+						<h3 class="rghthdng_prdct">Feature/Benefit</h3>
+						<p class="rghtdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+					</div>
+				</div>
+				<div class="col-md-4 pdprodctscustm text-center fture_bneftsectn_boxes">
+					<div class="common prdctcard prdctcardpd">
+						<img src="assets/images/Oval03.png" alt="Benefit"/>
+						<h3 class="rghthdng_prdct">Feature/Benefit</h3>
+						<p class="rghtdesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="about common">
+	<div class="container">
+		<div class="displyprop">
+			<div class="col-md-5 displyprop_midl_wdth">
+				<img src="assets/images/about.png" alt="About" class="aboutimg"/>
+			</div>
+			<div class="col-md-7 pdcustmlft displyprop_midl aboutprdctsectn">
+				<p class="shrtsubhdng">About {{product.name}}</p>
+				<p class="maintxt_innr maintxtbordr">Our mission is to help florists businesses grow and thrive.</p>
+				<p class="rghtdesc">{{product.long_description}}</p>
+			</div>
+		</div>
+	</div>
+</section>

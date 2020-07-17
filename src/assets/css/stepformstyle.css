@@ -1,0 +1,69 @@
+*{font-family: 'Conv_Poppins-Regular';}
+#msform {position: relative;}
+#msform fieldset {	background: white;	position: relative;}
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+/*inputs*/
+#msform input, #msform textarea {    padding:5px 15px 5px 0;    border: 0;    width: 100%;    color: #000;    font-size: 12px;    background: #fff;    border-bottom: 1px solid #000;    border-radius: 0;}
+/*buttons*/
+#msform .action-button { background: #eee;  color: #1CABA0;  border: 0 none;  cursor: pointer;    padding: 10px 30px;    margin: 10px 0 0 0;    font-family: 'Conv_Poppins-Medium';    width: auto;    border-radius: 50px;    font-size: 16px;}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow:none; background: #1CABA0;  color: #fff;
+}
+/*headings*/
+.fs-title {	font-size: 24px;	color: #000;	margin-bottom: 30px; font-family: 'Conv_Poppins-Medium';}
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin-bottom: 20px;
+}
+/*progressbar*/
+#progressbar {	margin-bottom: 50px;	overflow: hidden;	counter-reset: step;    padding: 0;}
+#progressbar li {	list-style-type: none;	color: #CDD6DD;	font-size: 14px;	width: 30%;	float: left;	position: relative; font-family: 'Conv_Poppins-Medium';}
+.dot {  height: 20px;    width: 20px;    background-color: #fff;    border-radius: 50%;    display: inline-block;    border: 2px solid #CDD6DD;    left: -40px;    position: relative;margin-bottom: 25px;}
+span.dot:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    display: block;
+    margin: 2px;
+}
+#progressbar li.active{color:#000;}
+#progressbar .active .dot {border: 2px solid #1CABA0;}
+.active span.dot:after { background: #1CABA0;}
+#progressbar li:before {
+	width: 20px;
+	line-height: 20px;
+	display: block;
+	font-size: 10px;
+	color: #333;
+	background: white;
+	border-radius: 3px;
+	margin: 0 auto 5px auto;
+}
+/*progressbar connectors*/
+#progressbar li:after {
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: #CDD6DD;
+	position: absolute;
+	left: -50%;
+	top: 9px;
+	z-index: -1; /*put it behind the numbers*/
+}
+#progressbar li:first-child:after {
+	/*connector not needed before the first step*/
+	content: none; 
+}
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before,  #progressbar li.active:after{	background: #1CABA0;	color: white;}
+.mltistpfrm ::-webkit-input-placeholder { color: #CDD6DD !important;}
+.mltistpfrm :-ms-input-placeholder {  color: #CDD6DD !important;}
+.mltistpfrm ::placeholder {  color: #CDD6DD !important;}

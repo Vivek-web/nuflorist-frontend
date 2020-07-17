@@ -1,0 +1,372 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="bckbtnprfl"><a routerLink="/account"><img src="assets/images/arrow_back.png"
+									alt="back" class="bckarrwspce" />Back</a></p>
+					</div>
+					<div class="col-md-12">
+						<div class="accntbox common mngeboxshdw">
+							<div class="col-md-12">
+								<p class="updtehdng mngecmpnyhdng">Add Company</p>
+							</div>
+							<div class="subscprates_pd mgedtcmpny common">
+								<form [formGroup]="CompanyForm" (ngSubmit)="Submit()" enctype="multipart/form-data"
+									id="editcmpnyfrm" class="editcmpnyfrm common">
+									<div class="common mngecmpny">
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth50hlf lbelmglftplus">
+													<label for="cmpname">Company Name</label>
+													<input type="text" class="form-control" id="cmpname"
+														placeholder="Company Name" autocomplete="off"
+														formControlName="company_name" />
+													<div *ngIf="submitted && f.company_name.errors"
+														class="inputValidation">
+														<div *ngIf="f.company_name.errors.required">Company Name is
+															required</div>
+													</div>
+												</div>
+												<div class="wdth50hlf lbelmgrghtplus">
+													<label for="ownrname">Owner name</label>
+													<input type="text" class="form-control" id="ownrname"
+														placeholder="Owner name" autocomplete="off"
+														formControlName="owner_name" />
+													<div *ngIf="submitted && f.owner_name.errors"
+														class="inputValidation">
+														<div *ngIf="f.owner_name.errors.required">Owner Name is required
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth50hlf lbelmglftplus">
+													<label for="cntct">Contact No.</label>
+													<input type="text" maxlength="15"class="form-control" id="cntct"
+														placeholder="Contact No." autocomplete="off"
+														formControlName="contact_number" />
+													<div *ngIf="submitted && f.contact_number.errors"
+														class="inputValidation">
+														<div *ngIf="f.contact_number.errors.required">Contact number is
+															required</div>
+															<div *ngIf="f.contact_number.errors.minlength">
+																Minimum length should be 8 digits.
+														   </div> 		
+													</div>
+
+
+												</div>
+												<div class="wdth50hlf lbelmgrghtplus">
+													<label for="mailid">Email Address</label>
+													<input type="email" class="form-control" id="mailid"
+														placeholder="Email Address" autocomplete="off"
+														formControlName="email_Address" />
+													<div *ngIf="submitted && f.email_Address.errors"
+														class="inputValidation">
+														<div *ngIf="f.email_Address.errors.required">Email Address is
+															required</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth50hlf lbelmglftplus">
+													<label for="addrslne1">Address Line 1</label>
+													<input type="text" class="form-control" id="addrslne1"
+														placeholder="Address Line 1" autocomplete="off"
+														formControlName="address_line1" />
+													<div *ngIf="submitted && f.address_line1.errors"
+														class="inputValidation">
+														<div *ngIf="f.address_line1.errors.required">Address_Line1 is
+															required</div>
+													</div>
+												</div>
+												<div class="wdth50hlf lbelmgrghtplus">
+													<label for="addrslne2">Address Line 2</label>
+													<input type="text" class="form-control" id="addrslne2"
+														placeholder="Address Line 2" autocomplete="off"
+														formControlName="address_line2" />
+
+												</div>
+											</div>
+										</div>
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth30 lbelmglftplus">
+													<label for="cty">Country</label>
+													<select class="pymntmthds" id="country" autocomplete="off"
+														(change)="changeState($event.target.value)"
+														formControlName="country">
+														<option value="">Select Country</option>
+														<option *ngFor="let country of countries" [value]="country.id">
+															{{country.name}}</option>
+													</select>
+													<div *ngIf="submitted && f.country.errors" class="inputValidation">
+														<div *ngIf="f.country.errors.required">Country is required</div>
+													</div>
+												</div>
+												<div class="wdth30 lbelmgrghtplus">
+													<label for="state">State</label>
+													<select class="pymntmthds" id="state" autocomplete="off"
+														formControlName="State">
+														<option value="">Select State</option>
+														<option *ngFor="let state of states" [value]="state.id">
+															{{state.name}}
+														</option>
+
+													</select>
+													<div *ngIf="submitted && f.State.errors" class="inputValidation">
+														<div *ngIf="f.State.errors.required">State is required</div>
+													</div>
+												</div>
+												<div class="wdth30 lbelmgrght">
+													<label for="city">City</label>
+
+
+													<input type="text" class="form-control" id="city"
+														placeholder="Enter City" formControlName="city">
+
+													<div *ngIf="submitted && f.city.errors" class="inputValidation">
+														<div *ngIf="f.city.errors.required">City is required</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group common">
+											<div class="common">
+												<div class="wdth50hlf lbelmglftplus">
+													<label for="zipc">Zip Code</label>
+													<input type="text" class="form-control" id="zipc"
+														placeholder="Zip Code" autocomplete="off"
+														formControlName="zip" />
+													<div *ngIf="submitted && f.zip.errors" class="inputValidation">
+														<div *ngIf="f.zip.errors.required">Zip is required</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="common mngestores">
+										<p class="updtehdng mngecmpnyhdng mngestrmgbtm">Manage Stores in Company</p>
+										<div formArrayName="Stores" class="accordion" id="accordionExample">
+											<div class="card" *ngFor="let group of StoreArray.controls; let i = index">
+												<div class="card-header common" id="headingOne">
+													<h2 class="mb-0">
+														<span class="strnme"></span>
+														<button type="button" class="btn btn-link flotrghttxt"
+															data-toggle="collapse"
+															[attr.data-target]="'#collapseOne'+ i"><span
+																class="hdngclpse">click to collapse</span> <i
+																class="fa fa-angle-down dwnarrw"></i></button>
+													</h2>
+												</div>
+												<div [attr.id]="'collapseOne'+ i" class="collapse show"
+													aria-labelledby="headingOne" data-parent="#accordionExample">
+													<div class="card-body">
+														<div class="common upldlogo">
+															<div class="logocntr">
+																<span class="upldimg">
+																	<p class="imgfrme">
+																		<span>
+																			<img [src]="group.controls.Storeimage.value"
+																				[hidden]="!group.controls.Storeimage.value" />
+																		</span>
+																	</p>
+																</span>
+																<span class="uplodbtn">
+																	<input type='file' id="imageUpload"
+																		accept=".png, .jpg, .jpeg" name="Storeimage"
+																		class="imageUpload"
+																		(change)="selectImage($event,i)" />
+																	<p class="upldbtndsgn">Upload logo</p>
+																</span>
+																<button class="fa fa-trash removeButton"
+																	(click)="remove(i)"></button>
+															</div>
+
+														</div>
+														<div [formGroupName]="i" class="common mngecmpny">
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth50hlf lbelmglftplus">
+																		<label for="cmpname">Store Name</label>
+																		<input type="text" class="form-control"
+																			id="cmpname" placeholder="Store Name"
+																			autocomplete="off"
+																			formControlName="store_name" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('store_name').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Store name required.
+																		</label>
+																	</div>
+																	<div class="wdth50hlf lbelmgrghtplus">
+																		<label for="ownrname">Owner name</label>
+																		<input type="text" class="form-control"
+																			id="ownrname" placeholder="Owner name"
+																			autocomplete="off"
+																			formControlName="owner_name" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('owner_name').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Owner name required.
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth50hlf lbelmglftplus">
+																		<label for="cntct">Contact No.</label>
+																		<input type="text" maxlength="15" class="form-control"
+																			id="cntct" placeholder="Contact No."
+																			autocomplete="off"
+																			formControlName="contact_number" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('contact_number').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Contact No required.
+																		</label>
+
+																		<label
+																			*ngIf="StoreArray.controls[i].get('contact_number').errors?.minlength"
+																			class="inputValidation">
+																			Minimum length should be 8 digits. 
+																		</label>
+																	</div>
+																	<div class="wdth50hlf lbelmgrghtplus">
+																		<label for="mailid">Email Address</label>
+																		<input type="email" class="form-control"
+																			id="mailid" placeholder="Email Address"
+																			autocomplete="off"
+																			formControlName="email_Address" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('email_Address').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Email Address required.
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth50hlf lbelmglftplus">
+																		<label for="addrslne1">Address Line 1</label>
+																		<input type="text" class="form-control"
+																			id="addrslne1" placeholder="Address Line 1"
+																			autocomplete="off"
+																			formControlName="address_line1" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('address_line1').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Address Line 1 required.
+																		</label>
+																	</div>
+																	<div class="wdth50hlf lbelmgrghtplus">
+																		<label for="addrslne2">Address Line 2</label>
+																		<input type="text" class="form-control"
+																			id="addrslne2" placeholder="Address Line 2"
+																			autocomplete="off"
+																			formControlName="address_line2" />
+
+																	</div>
+																</div>
+															</div>
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth30 lbelmglftplus">
+																		<label for="cty">Country</label>
+																		<select class="pymntmthds" id="country"
+																			autocomplete="off"
+																			(change)="changeStateStore($event.target.value,i)"
+																			formControlName="country">
+																			<option value="">Select Country</option>
+																			<option *ngFor="let country of countries"
+																				[value]="country.id">
+																				{{country.name}}</option>
+																		</select>
+																		<label
+																			*ngIf="StoreArray.controls[i].get('country').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Country name required.
+																		</label>
+																	</div>
+																	<div class="wdth30 lbelmgrghtplus">
+																		<label for="state">State</label>
+																		<select class="pymntmthds" id="state"
+																			autocomplete="off" formControlName="State">
+																			<option value="">Select State</option>
+																			<option *ngFor="let state of States[i]"
+																				[value]="state.id">
+																				{{state.name}}
+																			</option>
+
+																		</select>
+																		<label
+																			*ngIf="StoreArray.controls[i].get('State').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			State name required.
+																		</label>
+																	</div>
+
+																	<div class="wdth30 lbelmgrght">
+																		<label for="city">City</label>
+
+
+																		<input type="text" class="form-control"
+																			id="city" placeholder="Enter City"
+																			formControlName="city">
+
+																		<label
+																			*ngIf="StoreArray.controls[i].get('city').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			City name required.
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth50hlf lbelmglftplus">
+																		<label for="zipc">Zip Code</label>
+																		<input type="text" class="form-control"
+																			id="zipc" placeholder="Zip Code"
+																			autocomplete="off" formControlName="zip" />
+																		<label
+																			*ngIf="StoreArray.controls[i].get('zip').errors?.required && isValidFormSubmitted != null && !isValidFormSubmitted"
+																			class="inputValidation">
+																			Zip Code name required.
+																		</label>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="common">
+											<p class="addstrebtn text-right"><a class="addstremain"
+													(click)="addNewRow()" style="cursor:pointer;">Add More</a></p>
+										</div>
+									</div>
+									<div class="common">
+										<p class="addstrebtn text-right" (click)="Submit()"><a class="addstremain"
+												style="cursor:pointer;">Save</a></p>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<ngx-spinner></ngx-spinner>

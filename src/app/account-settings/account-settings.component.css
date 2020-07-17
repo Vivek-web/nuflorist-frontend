@@ -1,0 +1,34 @@
+.formclass{padding: 20px;}
+.bttndiv input.sgninbtn.updatePassbtn { border: none; border-radius: 8px; margin-right: 10px; }
+.changepwdbtn{
+    padding: 5px 12px 5px 12px;
+    border-radius: 16px;
+}
+.mrbttm-30{margin-bottom: 30px;}
+.nooutline:focus{outline: none !important;}
+.mr-rght-15{margin-right: 15px !important;}
+.mrbttm-0{margin-bottom:0px !important;}
+button.sgninbtn.updatePassbtn.changepwdbtn {
+    background: #eee;
+    color: #1CABA0;
+    border: 0 none;
+    cursor: pointer;
+    padding: 10px 30px;
+    margin: 10px 0 0 0;
+    font-family: 'Conv_Poppins-Medium';
+    width: auto;
+    border-radius: 50px;
+    font-size: 16px;
+}
+button.sgninbtn.updatePassbtn.changepwdbtn:hover{color: #eee;
+    background: #1CABA0;}
+    .accntsttng button.next.action-button.nooutline, .accntsttng input.next.action-button {
+        font-size: 15px !important;
+    }
+    .sccsmsgdiv{text-align: center; padding-bottom: 10px;}
+    .mr-top-10{margin-top: 10px;}
+    .mr-rttop-30-10{margin-right: 30px; margin-top: 10px;}
+    .pd-rt-15{padding-right: 15px !important;}
+.pd-rt-0{padding-right: 0px !important}
+.pd-lft-0{padding-left: 0px !important;}
+    

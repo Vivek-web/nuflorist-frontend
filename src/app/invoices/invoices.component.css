@@ -1,0 +1,7 @@
+.bttmpgination .my-pagination /deep/ .ngx-pagination .current {
+    background: #1CABA0;
+
+  }
+  .bttmpgination {
+    text-align: right;
+}

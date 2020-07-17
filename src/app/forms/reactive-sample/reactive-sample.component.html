@@ -1,0 +1,145 @@
+<div style="padding-right:15px;" class="container-fluid">
+
+  <!-- form header -->
+  <div class="row">
+    <div class="col">
+      <h1>Reactive Forms</h1>
+      <hr>
+    </div>
+  </div>
+
+  <!-- main form -->
+  <div class="row">
+    <form action="" style="width:100%;" [formGroup]="reactiveForm">
+      <div class="col">
+
+        <!-- personal info -->
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="fnText">First Name</label>
+              <input type="text" 
+              [ngClass]="{'form-control': true,
+                  'is-invalid': !firstName.valid && firstName.touched,
+                  'is-valid': firstName.valid}"
+              formControlName="firstName" id="fnText" placeholder="Enter first name">
+              <small *ngIf="firstName.errors?.required && firstName.touched" id="fnHelp" class="form-text custom-invalid-feedback">Field is required</small>
+              <small *ngIf="firstName.errors?.minlength && firstName.touched" id="fnHelp" class="form-text custom-invalid-feedback">Name should be atleast 2 characters.</small>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="lnText">Last Name</label>
+              <input type="text" 
+              [ngClass]="{'form-control': true,
+                  'is-invalid': !lastName.valid && lastName.touched,
+                  'is-valid': lastName.valid}"
+              formControlName="lastName" id="lnText" placeholder="Enter last name">
+              <small id="fnHelp" *ngIf="lastName.errors?.required && lastName.touched" class="form-text custom-invalid-feedback">Field is required</small>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr>
+          </div>
+        </div>
+
+
+        <!-- address form portion -->
+        <div class="row" formGroupName="address">
+          <div class="col-12">
+            <label for="" class="form-check-inline">Choose Type</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" (change)="triggerExpiryValidator()"
+              [ngClass]="{'form-check-input': true,
+                  'is-invalid': !addressType.valid && addressType.touched,
+                  'is-valid': addressType.valid}"
+              formControlName="addressType" id="inlineRadio1" value="permanent">
+              <label class="form-check-label" for="inlineRadio1">Permanent</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" (change)="triggerExpiryValidator()"
+              [ngClass]="{'form-check-input': true,
+                  'is-invalid': !addressType.valid && addressType.touched,
+                  'is-valid': addressType.valid}"
+              formControlName="addressType" id="inlineRadio2" value="temporary">
+              <label class="form-check-label" for="inlineRadio2">Temporary</label>
+            </div>
+            <label class="form-check-inline" for="inlineRadio2" *ngIf="addressType?.value === 'temporary'">Expiry Date</label>
+            <div class="form-check form-check-inline" *ngIf="addressType?.value === 'temporary'">
+              <input type="date" 
+              [ngClass] = "{'form-control' : true,
+              'is-invalid' : !expiryDate.valid && expiryDate.touched,
+              'is-valid' : expiryDate.valid}" 
+              formControlName="expiryDate" id="dateInput1">
+            </div>
+            <small *ngIf="addressType.errors?.required && addressType.touched" class="form-check-inline form-text custom-invalid-feedback">Pick one option.</small>            
+            <small *ngIf="expiryDate.errors?.date_error && expiryDate.touched" class="form-check-inline form-text custom-invalid-feedback">{{expiryDate.errors?.date_error}}</small>            
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="addText">Street Address</label>
+              <input type="text" id="addText" [ngClass]="{'form-control': true,
+                  'is-invalid': !streetAddress.valid && streetAddress.touched,
+                  'is-valid': streetAddress.valid}" formControlName="streetAddress" placeholder="Enter street address">
+              <small *ngIf="streetAddress.errors?.required && streetAddress.touched" class="form-text custom-invalid-feedback">Field is required</small>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" [ngClass]="{'form-control': true,
+                  'is-invalid': !city.valid && city.touched,
+                  'is-valid': city.valid}" formControlName="city" id="city" placeholder="Enter city">
+                  <small *ngIf="city.errors?.required && city.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <select id="inputState" formControlName="state" [ngClass]="{'form-control': true,
+                  'is-invalid': !state.valid && state.touched,
+                  'is-valid': state.valid}">
+                    <option selected [ngValue]="null">Choose...</option>
+                    <option *ngFor="let item of states" [value]="item">{{item}}</option>
+                  </select>
+                  <small *ngIf="state.errors?.required && state.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="zipcode">Zip Code</label>
+                  <input type="text" formControlName="zipcode" [ngClass]="{'form-control': true,
+                  'is-invalid': !zipcode.valid && zipcode.touched,
+                  'is-valid': zipcode.valid}" id="zipcode" placeholder="Enter city">
+                  <small *ngIf="zipcode.errors?.required && zipcode.touched" class="form-text custom-invalid-feedback">Field is required</small>
+                  <small *ngIf="zipcode.errors?.pattern && zipcode.touched" class="form-text custom-invalid-feedback">Value should be 5 digit number</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- seperator -->
+        <div class="row">
+          <div class="col">
+            <hr>
+          </div>
+        </div>
+
+        <!-- final action buttons -->
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <button type="button" [disabled]="!reactiveForm.valid" (click)="submitHandler()" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

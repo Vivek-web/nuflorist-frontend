@@ -1,0 +1,205 @@
+<div class=" common bgbnnerimg new-bg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection"> 
+		<div class="container">
+			<div class="prfile_postn mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="bckbtnprfl"><a routerLink="/manage-subscriptions"><img src="assets/images/arrow_back.png" alt="back" class="bckarrwspce">Back</a></p>
+					</div>
+					<div class="col-md-12">
+						<div class="subscptn_tble common accntbox">
+							<p class="updtehdng subscrptnspd">Manage Licenses for {{productname}}</p>
+							<div class="table-responsive tbleminht">
+							  <table class="table mainsubscrptntble">
+								<thead>
+								  <tr>
+									<th>Company Name</th>
+									<th>Store Name</th>
+									<th>Date Started</th>
+									<th>Next Renewal Date</th>
+								  </tr>
+								</thead>
+								<tbody *ngFor = "let al of allottedLicenses; let i = index">
+								  <tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1" [attr.data-target]="'#collapseOne'+ i" >
+									<td class="cmpnynme">{{al.company_name}}</td>
+									<td>{{al.store_name}}</td>
+									<td>{{al.subscription_start_date}}</td>
+									<td *ngIf ="al.status =='ACTIVE'">{{al.next_billing_date}}</td>
+									<td *ngIf = "al.status =='INACTIVE'"><p class="text-danger cncldtxt" style="float: none; margin: 10px;">Canceled </p></td>
+
+									<td class="expand-button"></td>
+									
+								  </tr>
+								  
+								<tr>
+									<td colspan="5">
+										<div  [attr.id]="'collapseOne'+ i"id="collpsedataone" class="collapse in cllpsedtastyle">
+											<p class="usrdtls">Admin User Details</p>
+											<div class="common">
+												<div class="coldvde wd-48">
+													<p>{{al.first_name}}  {{al.last_name}}</p>
+													<p class="wrdbrk">{{al.email}}</p>
+													<p>{{al.mobile_no}}</p>
+												</div>
+												
+												<div *ngIf = "al.status =='ACTIVE'" class="coldvde wd-48 text-right">
+													<div class="common"><button class="mnglcnsbttn cncl_lcbtn prdcttrialbtn2 subscptnbtn"(click)="CancelLicenses(al.id)" >Cancel License</button></div>
+													<div class="common" ><button class="mnglcnsbttn cncl_lcbtn prdcttrialbtn2 subscptnbtn" (click)="changeAdminUser(al.id)"data-toggle="modal" data-target="#exampleModal"  >Change Admin User</button></div>
+													<div class="common"><button class="mnglcnsbttn cncl_lcbtn prdcttrialbtn2 subscptnbtn"(click)="changePassword(al.id)" >Change Password</button></div>
+												</div>
+												<!-- <div *ngIf = "al.status =='INACTIVE'" class="coldvde text-right wd-48">
+													<p class="text-danger cncldtxt">Canceled </p>
+													
+												</div> -->
+
+
+
+											</div>
+										</div>
+									</td>
+								  </tr>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+
+			  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<form [formGroup]="Selectedadmin" (ngSubmit)="SelectedSubmit">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">Select Admin</h5>
+					  <button type="button" class="close" (click)="SelectedAdminReset()" #close data-dismiss="modal" aria-label="Close">&times;
+					  </button>
+					</div>
+					<div class="modal-body">
+						
+						<select formControlName="adminid" class="ordrslct wd-70 newslct "class="form-control"
+						(change)="SelectedAdmin($event.target.value)"[ngClass]="{ 'is-invalid': selectedsubmit && f.adminid.errors }" >
+						<option value="">Select Admin User</option>
+						<option *ngFor="let user of AdminData" [value]="user.admin_user_id">
+							{{user.first_name}} {{user.last_name}}
+						</option>
+						  </select>
+						  <div *ngIf="selectedsubmit && f.adminid.errors" class="invalid-feedback">
+							<div *ngIf="f.adminid.errors.required">Admin is required</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="inputValidation" style="margin:15px;">
+						{{adminMessage}}
+						</div>
+						<div class="text-success" style="margin:15px;">
+							{{AdminSelected}}
+							</div>
+					  <button type="button" class="btn btn-secondary"(click)="AddNew()" data-toggle="modal"
+					  data-target="#select_user"data-dismiss="modal">Add New</button>
+					  <button type="button" class="btn btn-primary" (click)="SelectedSubmit()">Submit</button>
+					  
+					</div>
+					</form>
+				  </div>
+				</div>
+			  </div>
+
+			<div class="modal" id="select_user" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+			
+						<!-- Modal Header -->
+						<div class="modal-header pd-16-25">
+							<span class="modal-title fnt-24">Add Admin User</span>
+							<button type="button" (click)='AdminReset()' #adminclose class="close"
+								data-dismiss="modal">&times;</button>
+						</div>
+			
+						<!-- Modal body -->
+						<div class="modal-body pd-16-25">
+							<div class="modalformdiv">
+								<form [formGroup]="AdminForm" (ngSubmit)="AdminSubmit">
+									<div class="form-group common">
+										<div class="common">
+											<div class="wdth50 lbelmglft">
+												<label for="fname">First name</label>
+												<input type="text" class="form-control" id="fname" placeholder="First name"
+													autocomplete="off" formControlName="firstname" class="form-control"
+													[ngClass]="{ 'is-invalid': AdminSubmitted && k. firstname.errors }" />
+												<div *ngIf="AdminSubmitted && k.firstname.errors" class="invalid-feedback">
+													<div *ngIf="k.firstname.errors.required">First name is required</div>
+												</div>
+											</div>
+											<div class="wdth50 lbelmgrght">
+												<label for="lname">Last name</label>
+												<input type="text" class="form-control" id="lname" placeholder="Last name"
+													autocomplete="off" formControlName="lastname" />
+												<!-- <div *ngIf="AdminSubmitted && k.lastname.errors" class="invalid-feedback">
+													<div *ngIf="k.lastname.errors.required">Last name is required</div>
+												</div> -->
+											</div>
+										</div>
+									</div>
+									<div class="form-group common">
+										<label for="email_add">Email Address</label>
+										<input type="email" class="form-control" id="emailAdmin" placeholder="Email Address"
+											autocomplete="off" formControlName="email" class="form-control"
+											[ngClass]="{ 'is-invalid': AdminSubmitted && k. email.errors }" />
+										<div *ngIf="AdminSubmitted && k.email.errors" class="invalid-feedback">
+											<div *ngIf="k.email.errors.required">Email is required</div>
+											<div *ngIf="k.email.errors.email">Email must be a valid email address</div>
+											<span *ngIf="k.email.errors?.isExists">Email already exists!</span>
+			
+											<!-- <div *ngIf="k.email.invalid && email.errors.isEmailUnique">this email already exist
+											</div> -->
+										</div>
+			
+									</div>
+									<div class="text-success" style="text-align: center;">
+										{{adminmessage}}</div>
+									<div class="common buttondiv">
+										<input type="button" name="next" (click)="AdminSubmit()"
+											class="next action-button savestrtbutton" value="Add Admin User">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<button type="button" class="btn btn-primary" hidden data-toggle="modal" #passmodel data-target="#passModel">
+	
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="passModel" tabindex="-1" role="dialog" aria-labelledby="passModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <!-- <div class="modal-header"> -->
+	  
+		<button type="button" class="close" data-dismiss="modal" hidden #passclose aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  <!-- </div> -->
+	  <div class="modal-body">
+		  <div class="modal-content" style="border: none;">
+			  <div class="text-success" style="margin: 13px;">
+				  {{passwordMessage}}
+				  </div>
+		  </div>
+	  </div>
+	</div>
+  </div>
+</div>
+
+
+<ngx-spinner></ngx-spinner>
+

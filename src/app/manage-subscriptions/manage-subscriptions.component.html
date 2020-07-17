@@ -1,0 +1,70 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="bckbtnprfl"><a routerLink="/subscriptions" ><img src="assets/images/arrow_back.png" alt="back" class="bckarrwspce"/>Back to Profile</a></p>
+					</div>
+					<div class="col-md-12">
+						<div class="accntbox common mngeboxshdw">
+							<div class="row">
+								<div class="col-md-6">											
+									<p class="updtehdng">Manage Subscriptions</p>
+								</div>
+								<div class="col-md-6 text-right">											
+									<p class="updtehdng">Monthly Total: <span class="grntxt">${{TotalAmount}}</span></p>
+								</div>
+							 </div>
+							<div class="subscprates_pd subscptnmgbtm common">
+								<div class="row">
+									<div class="col-md-4 pdcustmsubrght" style="margin-bottom:15px;" *ngFor = "let product of productData">
+										<div class="common subscard" >
+											<div class="common prdctnme">
+												<div class="common prdctsdesc">
+													<span class="subscrpimg">
+														<p class="subscrpimg_wdth">
+														<img src="assets/images/{{product.image}}" alt="{{product.name}}"/>
+														</p>
+													</span>
+													<span class="prdctnamefull prdctnamefull_subsc">
+														<p class="subscpbxnme">{{product.name}}</p>
+													
+													</span>
+												</div>
+											</div>
+											<div class="common subscptntxtpd text-center">
+												
+												<p class="theratesubsc">${{product.total_price}}/mo</p>
+												<p class="licnse rghtdesc">Licenses: {{product.no_of_licenses}}</p>
+												<p class="rghtdesc mngelcense"><a routerLink="/manage-licenses/{{product.product_id}}" class="grntxt">Manage Licenses</a></p>
+												<p class="rghtdesc addlcense"><a routerLink="/checkout/{{product.product_id}}"class="grntxt">Add more Licenses</a></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4 pdcstmbthsubs">
+										<div class="common subscard">
+											<div class="common">
+												<div class="common prdctsdesc text-center rspnsv_displ">
+													<p class="tkelook">Take a look at your other products!</p>
+													<p class="dmmyimg">
+														<img src="assets/images/explore.png" alt="Products"/>
+													</p>
+													<p class="exploremore">
+														<a routerLink="/products" class="buybtn2">Explore products</a>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ngx-spinner></ngx-spinner>

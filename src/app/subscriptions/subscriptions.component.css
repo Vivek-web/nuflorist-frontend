@@ -1,0 +1,11 @@
+.bttmpgination .my-pagination /deep/ .ngx-pagination .current {
+    background: #1CABA0;
+
+  }
+  .bttmpgination {
+    text-align: right;
+}
+.crsrpntr{cursor: pointer;}
+tr.nohoverclr:hover {
+  background: none !important;
+}

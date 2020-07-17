@@ -1,0 +1,53 @@
+<div class="common">
+	<app-top-bar></app-top-bar>
+	<div class="common prodctsmainsec">
+		<div class="container">
+			<div class="text-center">
+				<p class="prdctssmllimg"><img src="assets/images/products.png" alt="Products" class="prdctbnnr"/></p>
+				<p class="maintxt_innr maintxt_innrmgbtm">Products for all your needs.</p>
+				<p class="maintxt_innr2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<section class="common allprdcts">
+	<div class="container">
+		<div class="prdctsrw">
+			<div class="row">
+				<div *ngFor = "let product of Products" class="col-md-4 pdprodctscustm" style="margin-bottom:30px;">
+					<div class="common prdctcard">
+						<div class="common prdctnme">
+							<div class="common prdctsdesc">
+								<span class="prdctimg">
+									<img src="assets/images/{{product.image}}" alt="{{product.name}}"/>
+								</span>
+								<span class="prdctnamefull">{{product.name}}</span>
+							</div>
+						</div>
+						<div class="common prdctbuybtns">
+							<p class="shrtdesc rghtdesc">{{product.description}}</p>
+							<p class="therate text-right">${{product.price}}/mo</p>
+							<div *ngIf="showBtnDiv1" class="common lastprdctbtns text-center">
+								<span  *ngIf="product.isPurchased == 1" class="buymain displypropblck">
+									<a routerLink="/checkout/{{ product.id }}" class="buybtn">Buy Licence</a>
+								</span>
+								<span *ngIf="product.isPurchased == 0"  class="buymain displypropblck">  
+                                     <a routerLink="/checkout/{{ product.id }}" class="buybtn">Start {{price}} days free trial</a>
+                                </span>   
+							</div>
+							<div *ngIf="showBtnDiv2" class="common lastprdctbtns text-center">
+								<span  *ngIf="show" class="buymain displypropblck">
+									<a routerLink="/checkout/{{ product.id }}" class="buybtn"(click)="RemoveOldData()">Buy Licence</a>
+								</span>
+								<span *ngIf="trailversion"  class="buymain displypropblck">  
+                                     <a routerLink="/checkout/{{ product.id }}" class="buybtn"(click)="RemoveOldData()">Start {{price}} days free trial</a>
+                                </span>   
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<ngx-spinner></ngx-spinner>

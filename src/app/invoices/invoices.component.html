@@ -1,0 +1,88 @@
+<div class="common bgbnnerimg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="prfile_postn mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="wlcme">Welcome, {{ loggedInUserName }}</h5>
+					</div>
+					<div class="col-md-3">
+						<div class="accntbox minhtaccountinfo" style="margin-bottom: 75px;">
+							<div class="accntinfo text-center">
+								<p class="accntimg"><img src="assets/images/account.png" alt="Profile image" /></p>
+								<h4 class="accntnme">{{ loggedInUserName }}</h4>
+								<p class="accntmail"><a
+										href="mailto: {{ loggedInUserEmail }}">{{ loggedInUserEmail }}</a></p>
+
+							</div>
+							<div class="accntlist text-center">
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/subscriptions">Subscriptions</a>
+								</p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/account">Companies & Stores</a>
+								</p>
+								<p class="accntlist_innr accnt_active"><a routerLink="/account-settings">Account
+										Settings</a></p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/invoices">Invoices</a></p>
+
+								<!-- <p class="accntlist_innr"><a routerLink="/change-password">Password</a></p> -->
+								<p class="accntlist_innr"><a routerLink="/notification">Notification</a></p>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9">
+
+						<div class="subscptn_tble common accntbox">
+							<p class="updtehdng subscrptnspd">Invoices</p>
+							<div class="table-responsive">
+								<table class="table table-hover mainsubscrptntble">
+									<thead>
+										<tr>
+											<th>Product</th>
+											<th>Amount</th>
+											<th>Date</th>
+											<th>Status </th>
+											<th>Invoice</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr
+											*ngFor="let product of productData | paginate: { itemsPerPage:10, currentPage: p } ">
+											<td> {{product.product_name}}</td>
+											<td> {{product.amount_paid}}</td>
+											<td>{{product.date}}</td>
+											<td>{{product.status}}</td>
+											
+											<td><a href="{{product.invoice_pdf}}" target="_blank"><i class="fa fa-eye"
+														aria-hidden="true" style="color: #1CABA0;"></i></a></td>
+											
+
+
+										</tr>
+										<!-- <tr *ngIf = "showNoRecord"><td style="padding-left:230px;">No Invoices Found</td>
+								</tr> -->
+									</tbody>
+								</table>
+								<table *ngIf="showNoRecord" style="width: 100%; text-align: center;">
+									<tr>
+										<td>No Invoices Found</td>
+									</tr>
+								</table>
+								<div *ngIf="paginationhide" class="bttmpgination">
+									<pagination-controls class="my-pagination" (pageChange)="p = $event">
+									</pagination-controls>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ngx-spinner></ngx-spinner>

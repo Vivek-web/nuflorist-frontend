@@ -1,0 +1,25 @@
+.removeButton{
+    background: transparent;
+    border: none;
+    padding-left: -46px;
+    color:#1CABA0;
+    padding-top:10px;
+    font-size: 20px;
+}
+.use-another-card {
+     color:#1CABA0 !important;
+     border:none;
+     background: transparent;
+     margin-left:10px;
+}
+.pd-rt-10{padding-right: 10px;;}
+.mr-top-25{margin-top: 25px !important;}
+.mkbttn {
+    margin-left: 0px !important;
+    border: 1px solid #1CABA0 !important;
+    border-radius: 50px;
+    font-size: 15px;
+    padding: 10px;
+}
+.lftrt-0-pd{padding-left: 0px;
+    padding-right: 0px;}

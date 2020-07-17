@@ -1,0 +1,36 @@
+<div class="common">
+<app-top-bar></app-top-bar>
+<div class="common">
+	<div class="container">
+		<div class="common formpd">
+			<div class="signupfrmmain">
+				<form (submit)="loginUser($event)" class="signinform">
+					<div class="formpadding">
+						<h4 class="signhedng">Sign in</h4>
+						<div class="mainsgninform">
+							<div class="form-group">
+							  <label for="email">Email Address</label>
+							  <input type="text" class="form-control email inptdesgn" id="email" placeholder="Enter email"(keypress)="checkInput('email')" name="email">
+							  <span class="inputValidation">{{ emailError }}</span>
+							</div>
+							<div class="form-group mgbtmless">
+							  <label for="pwd">Password</label>
+							  <input type="password" class="form-control pwd inptdesgn" id="password" placeholder="Enter password" (keypress)="checkInput('password')" name="pswd">
+							  <span class="inputValidation">{{ passwordError }}</span>
+							</div>
+							<div class="form-group text-right">
+								<label for="fgtpwd" class="fgtpwd"><a routerLink="/forgot-password">Forgot Password</a></label>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="sgninbtn" name="sgninbtn" value="Sign in">
+							</div>
+						</div>
+					</div>
+					<div class="common sgnupbox_brdr text-center">
+						<p class="nomembr">Not a member? <span class="sgnuplnk"><a routerLink="/signup">Sign up</a></span></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

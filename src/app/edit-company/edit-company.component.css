@@ -1,0 +1,18 @@
+.removeButton{
+    background: transparent;
+    border: none;
+    padding-left: -46px;
+    color:#1CABA0;
+    padding-top:10px;
+    font-size: 20px;
+    padding-top: 30px;
+    cursor: pointer;
+
+}
+.newsavebttn{background: #fff;
+    color: #000;
+    text-decoration: none;
+    border: 2px solid #1CABA0;
+    font-size: 14px;
+    padding: 5px 55px;}
+.newsavebttn_mrgntop{margin-top: 25px;}

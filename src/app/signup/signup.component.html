@@ -1,0 +1,35 @@
+<div class="common">
+<app-top-bar></app-top-bar>
+</div>
+<div class="common">
+	<div class="container">
+		<div class="common formpd">
+			<div class="signupfrmmain">
+				<form  (submit)="signupUser($event)" class="signinform">
+					<div class="formpadding">
+						<h4 class="signhedng">Sign up</h4>
+						<div class="mainsgninform">
+							<div class="form-group">
+							  <label for="email">Email Address</label>
+							  <input type="text" class="form-control email inptdesgn"(keypress)="checkInput('email')" id="email" placeholder="Enter email">
+							  <span class="inputValidation">{{ emailError }}</span>
+							</div>
+							<div class="form-group">
+							  <label for="pwd">Create Password</label>
+							  <input type="password" class="form-control pwd inptdesgn" (keypress)="checkInput('password')" id="password" placeholder="Enter password">
+							  <span class="inputValidation">{{ passwordError }}</span>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="sgninbtn" value="Sign up" >
+							</div>
+							<span class="successMessage">{{ signupSuccess }}</span>
+						</div>
+					</div>
+					<div class="common sgnupbox_brdr text-center">
+						<p class="nomembr">Already a member? <span class="sgnuplnk"><a routerLink="/login">Sign in</a></span></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

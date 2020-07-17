@@ -1,0 +1,389 @@
+<div class="common bgbnnerimg">
+	<app-top-bar></app-top-bar>
+	<div class="common bannertxt accntsection">
+		<div class="container">
+			<div class="prfile_postn mnagesubsmain">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="wlcme">Welcome, {{ loggedInUserName }}</h5>
+					</div>
+					<div class="col-md-3">
+						<div class="accntbox minhtaccountinfo" style="margin-bottom: 75px;">
+							<div class="accntinfo text-center">
+								<p class="accntimg"><img src="assets/images/account.png" alt="Profile image" /></p>
+								<h4 class="accntnme">{{ loggedInUserName }}</h4>
+								<p class="accntmail"><a
+										href="mailto: {{ loggedInUserEmail }}">{{ loggedInUserEmail }}</a></p>
+
+							</div>
+							<div class="accntlist text-center">
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/subscriptions">Subscriptions</a>
+								</p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/account">Companies & Stores</a>
+								</p>
+								<p class="accntlist_innr accnt_active"><a routerLink="/account-settings">Account
+										Settings</a></p>
+
+								<p class="accntlist_innr accnt_active"><a routerLink="/invoices">Invoices</a></p>
+
+								<!-- <p class="accntlist_innr"><a routerLink="/change-password">Password</a></p> -->
+								<p class="accntlist_innr"><a routerLink="/notification">Notification</a></p>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-9 mrbttm-30">
+
+						<div class="subscptn_tble common accntbox">
+
+							<div class="col-md-12 custmpdchckout">
+								<form (submit)="updateCustmoreinfo($event)" id="msform" class="mltistpfrm formclass">
+									<!-- progressbar -->
+
+									<!-- fieldsets -->
+
+
+									<h2 class="fs-title" style="text-align: center;">Profile information</h2>
+									<!-- <div class="text-success" style="text-align: center;">{{message}}</div> -->
+
+
+									<div class="form-group common">
+										<p class="nomg">
+											<span class="lbl_lft"><label for="label-email">Email</label></span>
+
+											<!-- <span *ngIf = "ifCustmoreLogin" class="lblrght text-right fltrght hveaccnt">Already have an account? <a
+														routerLink="/login">Login</a></span> -->
+										</p>
+
+
+
+										<input type="text" class="form-control" id="email" value="{{V_email}}"
+											placeholder="Email" readonly autocomplete="off" />
+										<span class="inputValidation">{{ emailError }}</span>
+									</div>
+
+									<div class="form-group common">
+										<label for="address">Contact</label>
+
+										<input type="text" class="form-control" id="contact" value="{{V_contact}}"
+											placeholder="contact no " autocomplete="off" />
+										<span class="inputValidation">{{ contactError }}</span>
+									</div>
+									<div class="form-group common">
+										<div class="common">
+											<div class="wdth50 lbelmglft">
+												<label for="fname">First name</label>
+
+												<input type="text" class="form-control" id="first_name"
+													value="{{V_firstname}}" placeholder="First name"
+													autocomplete="off" />
+												<span class="inputValidation">{{ first_nameError }}</span>
+											</div>
+											<div class="wdth50 lbelmgrght">
+												<label for="lname">Last name</label>
+
+
+												<input type="text" class="form-control" id="last_name"
+													value="{{V_lastname}}" placeholder="Last name" autocomplete="off" />
+
+												<span class="inputValidation">{{ last_nameError }}</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group common">
+										<label for="address">Address</label>
+
+
+										<input type="text" class="form-control" id="address_line1" value="{{V_address}}"
+											placeholder="1234 street name" autocomplete="off" />
+
+										<span class="inputValidation">{{ address_line1Error }}</span>
+									</div>
+									<div class="form-group common">
+										<label for="addressoptnl">Address, suite, etc. (optional)</label>
+
+
+										<input type="text" class="form-control" id="address_line2"
+											value="{{V_addressOptional}}" placeholder="1234 street name"
+											autocomplete="off" />
+
+										<span class="inputValidation">{{ address_line2Error }}</span>
+									</div>
+									<!-- <div class="form-group common">
+											<label for="city">City</label>
+											<select class="pymntmthds" id="city"  autocomplete="off" >
+												<option value="">Choose your City</option>
+												<option *ngFor="let city of cites" value="{{ city.id}}" >{{city.name}}</option>
+											</select>
+											<span class="inputValidation">{{ cityError }}</span>
+										</div> -->
+									<div class="form-group common"> 
+										<div class="common">
+											<div class="wdth30 lbelmglft">
+												<label for="cntry">Country</label> 
+
+												<select class="pymntmthds" id="country" autocomplete="off"
+													(change)="changeState($event.target.value)">
+													<option value="">Select Country</option>
+													<option *ngFor="let country of countries" [value]="country.id"
+														[selected]="country.id == V_Country">
+														{{country.name}}</option>
+												</select>
+
+												<span class="inputValidation">{{ countryError }}</span>
+											</div>
+											<div class="wdth30 lbelmgbth"> 
+												<label for="state">State</label>
+												<select class="pymntmthds" id="state" autocomplete="off">
+													<option value="">Select State</option>
+													<option *ngFor="let state of states" [value]="state.id"
+														[selected]="state.id == V_State">
+														{{state.name}}
+													</option>
+
+												</select>
+
+												<span class="inputValidation">{{ stateError }}</span>
+											</div>
+											<div class="wdth30 lbelmgrght">
+												<label for="city">City</label>
+
+
+												<input type="text" class="form-control" value="{{V_city}}" id="city"
+													placeholder="Enter City">
+
+												<span class="inputValidation">{{ cityError }}</span>
+											</div>
+
+										</div>
+									</div>
+									<!-- <div class="form-group common"> -->
+									<div class="form-group common">
+										<label for="zip">Zipcode</label>
+
+
+										<input type="text" class="form-control" value="{{V_zipcode}}" id="zip"
+											placeholder="1234" autocomplete="off" />
+
+										<span class="inputValidation">{{ zipError }}</span>
+									</div>
+									<!-- </div> -->
+									<div class="common text-success sccsmsgdiv" >{{Profilemessage}}</div>
+									<div class="row accntsttng">
+										<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center posrel pd-lft-0">
+											<input *ngIf="ShowPayNow" type="submit" name="next"
+												class="next action-button nooutline mr-rght-15" value="Update" />
+											<img *ngIf="ShowLoading" class="loaderimage mr-top-10" src="assets/images/loader.gif"
+												style="position:relative;" />
+										</div>
+
+										<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 pd-lft-0">
+											<!-- Button trigger modal -->
+											<button type="button" class="next action-button nooutline"
+												data-toggle="modal" data-target="#passwordModal">
+												Change Password
+											</button>
+										</div>
+
+										<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12  text-right">
+											<button type="button" class="next action-button nooutline"
+												 data-toggle="modal" data-target="#cardModal">
+												Update Card
+											</button>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+									<!-- Modal -->
+									<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h2 class="fs-title mrbttm-0" style="text-align: center;">Update
+														Password</h2>
+													<button type="button" #closebutton id="closebutton" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="add-top-margin">
+														<form (submit)="Submit($event)">
+															<div class="form-group lbelmglftplus_pwd">
+																<label for="email">Old Password</label>
+																<input type="password" class="form-control input-reset"(keypress)="checkInput('oldPassword')"
+																	id="oldPassword" placeholder="Enter Old Password"
+																	>
+																<span class="inputValidation">{{OldPassError}}</span>
+															</div>
+															<div class="form-group lbelmglftplus_pwd">
+																<label for="pwd">New Password</label>
+																<input type="password" class="form-control input-reset"(keypress)="checkInput('newPassword')"
+																	id="Newpassword" placeholder="Enter new  password"
+																	name="pswd">
+																<span class="inputValidation">{{newPassError}}</span>
+															</div>
+
+															<div class="form-group lbelmglftplus_pwd">
+																<label for="pwd">Confirm Password</label>
+																<input type="password" class="form-control input-reset"(keypress)="checkInput('ConfirmPassword')"
+																	id="Confirmpassword" placeholder="Enter password"
+																	name="pswd">
+																<span
+																	class="inputValidation">{{confirmPassError}}</span>
+															</div>
+															<div class="form-group makeDivCentre bttndiv">
+																<div class="row">
+																	<div class="col-md-12 text-right">
+
+																		<div class="common text-success sccsmsgdiv" >{{Passwdemessage}}</div>
+																		<img *ngIf="ShowLoading" class="loaderimage mr-rttop-30-10"
+																			src="assets/images/loader.gif"
+																			style="position:relative;" />
+																			<button *ngIf="ShowPayNow" type="submit"
+																			name="sgninbtn"
+																			class="sgninbtn updatePassbtn changepwdbtn nooutline">Done
+																		</button>
+																		
+																	</div>
+																</div>
+															</div>
+														</form>
+													</div>
+													<!-- </div> -->
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal fade" id="cardModal" tabindex="-1" role="dialog"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h2 class="fs-title mrbttm-0" style="text-align: center;">Enter Card
+														Details</h2>
+													<button type="button" #fileInput id="closecard" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="add-top-margin">
+														<form (submit)="UpdateCardInformation($event)" id="msform"
+															class="mltistpfrm">
+
+
+															<div class="text-danger" style="padding-bottom: 15px;">
+																{{StripeCardEror}}
+															</div>
+
+															<!-- <div class="text-danger text-center">
+																	hfhf
+																</div> -->
+															<div class="form-group common"> 
+																<label for="cardhlder">Card holder name</label>
+																<input type="text" class="form-control card-reset" id="card_holder"(keypress)="checkCard('card_holder')"
+																	placeholder="cardholder name" autocomplete="off" />
+																<span class="inputValidation">{{ cardError }}</span>
+															</div>
+															<div class="form-group common">
+																<label for="cardno">Card Number</label>
+																<input id="card_number" maxlength="16" type="text"(keypress)="checkCard('card_number')"
+																	class="form-control card-reset"
+																	data-inputmask="'mask': '9999 9999 9999 9999'"
+																	placeholder="1234-1234-1234-1234"
+																	autocomplete="off" />
+																<span
+																	class="inputValidation">{{ card_numberError }}</span>
+															</div>
+															<div class="form-group common">
+																<div class="common">
+																	<div class="wdth50 lbelmglft">
+																		<label for="expre">Expiry Month</label>
+																		<select id="card_expiry_date" class="pymntmthds card-reset"(change)="checkCard('expire_month')"
+																			placeholder="324" autocomplete="off">
+																			<option value="">Select Month</option>
+																			<option value="1">01</option>
+																			<option value="2">02</option>
+																			<option value="3">03</option>
+																			<option value="4">04</option>
+																			<option value="5">05</option>
+																			<option value="6">06</option>
+																			<option value="7">07</option>
+																			<option value="8">08</option>
+																			<option value="9">09</option>
+																			<option value="10">10</option>
+																			<option value="11">11</option>
+																			<option value="12">12</option>
+																		</select>
+																		<span
+																			class="inputValidation">{{ card_expiry_dateError }}</span>
+																	</div>
+																	<div class="wdth50 lbelmgrght">
+																		<label for="cvv">ExpiryYear</label>
+																		<select id="expYear" class="pymntmthds card-reset"(change)="checkCard('expYear')"
+																			placeholder="324" autocomplete="off">
+																			<option value="">Select Year</option>
+																			<option value="20">2020</option>
+																			<option value="21">2021</option>
+																			<option value="22">2022</option>
+																			<option value="23">2023</option>
+																			<option value="24">2024</option>
+																			<option value="25">2025</option>
+																			<option value="26">2026</option>
+																			<option value="27">2027</option>
+																			<option value="28">2028</option>
+																			<option value="29">2029</option>
+																			<option value="30">2030</option>
+																		</select>
+																		<span
+																			class="inputValidation">{{ card_expiry_yearError }}</span>
+																	</div>
+																</div>
+															</div>
+															<div class="form-group common">
+																<label for="cvv">CVV</label>
+																<input id="card_cvv" type="password" maxlength="4"(keypress)="checkCard('cvv')"
+																	class="form-control card-reset" data-inputmask="'mask': '999'"
+																	placeholder="324" autocomplete="off" />
+																<span class="inputValidation">{{ card_cvvError }}</span>
+															</div>
+															<div class="common col-md-12 text-right">
+																<div class="text-success" style="text-align: center;">
+																	{{Cardmessage}}</div>
+																<button *ngIf="ShowPayNow" type="submit" name="sgninbtn"
+																	class="sgninbtn updatePassbtn changepwdbtn nooutline">Done
+																</button>
+																<img *ngIf="ShowLoading" class="loaderimage"
+																	src="assets/images/loader.gif"
+																	style="position:relative;" />
+															</div>
+														</form>
+													</div>
+													<!-- </div> -->
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</form>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ngx-spinner></ngx-spinner>

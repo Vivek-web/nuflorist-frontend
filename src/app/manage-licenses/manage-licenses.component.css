@@ -1,0 +1,8 @@
+.wrdbrk{word-break: break-all;}
+/* .common.bgbnnerimg.new-bg {
+    background-size: inherit; background-position: inherit !important;padding-bottom: 20px;
+} */
+.wd-48{width: 48% !important;}
+.mnglcnsbttn {width: 38%;padding: 2px !important;font-size: 12px;margin-right: 15px; margin-bottom: 5px;}
+.mnglcnsbttn:last-child {margin-right: 0px;}
+.cncldtxt{padding-bottom: 5px;width: 38%; text-align: center;margin: 0 auto;float: right;}
